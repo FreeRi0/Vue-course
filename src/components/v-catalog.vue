@@ -1,6 +1,9 @@
 <template>
   <div class="v-catalog">
     <h2 class="v-catalog__title">Каталог курсов</h2>
+    <router-link :to="{name: 'cart', params:{cart_data: CART }}">
+      <div class="v-catalog__link_to_cart"><img src="../assets/cart.png" alt="cart">{{ CART.length }}</div>
+    </router-link>
     <div class="v-catalog__wrapper">
     <vCatalogItemVue v-for="product in PRODUCTS" :key="product.article" :product_data="product" @addToCart= "addToCart">
     </vCatalogItemVue>
@@ -23,7 +26,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["PRODUCTS"])
+    ...mapGetters(["PRODUCTS", "CART"])
   },
   methods: {
     ...mapActions(["GET_PRODUCTS_FROM_API", "ADD_TO_CART"]),
@@ -56,6 +59,16 @@ export default {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  }
+  &__link_to_cart {
+   position: absolute;
+   top: 15px;
+   right: 35px;
+   padding: 15px;
+   display: flex;
+   align-items: center;
+   font-size: 24px;
+   color: crimson;
   }
 }
 
